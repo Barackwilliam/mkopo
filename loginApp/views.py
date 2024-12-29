@@ -62,7 +62,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(reverse('login_App:edit-customer'))
 
         else:
             return render(request, 'loginApp/login.html', context={'form': form, 'user': "Customer Login", 'error': 'Invalid username or password'})
