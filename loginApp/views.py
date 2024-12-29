@@ -32,7 +32,8 @@ def sign_up_view(request):
             user = authenticate(request, username=username, password=password1)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse('home'))
+                #return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(reverse('login_App:login_customer'))
 
             return HttpResponseRedirect(reverse('login_App:login_customer'))
 
@@ -85,6 +86,8 @@ def edit_customer(request):
         if form.is_valid:
             customer = form.save(commit=False)
             customer.save()
-            return HttpResponseRedirect(reverse('home'))
+            return redirect('/loan/loan-request/')
+            #return HttpResponseRedirect(reverse('/loan/loan-request/'))
+        
     # return HttpResponseRedirect(reverse('home'))
     return render(request, 'loginApp/edit.html', context={'form': form})

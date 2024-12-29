@@ -12,7 +12,7 @@
 
     <div class="row">
         <div class="p-5 m-auto my-5 rounded shadow-lg col-md-6 bg-body">
-            <h3 class="text-center text-success">Update Your Information </h3>
+            <h3 class="text-center text-success">Jaza Taarifa Zako </h3>
             <form method="POST" class="my-5" enctype="multipart/form-data">
                 {% csrf_token %}
                 <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -20,14 +20,14 @@
                     <div class="col">
                         <div class="form-outline">
                             {% render_field form.first_name|attr:'required:true' type="text" class="form-control" %}
-                            <label class="form-label" for="form6Example1">First name</label>
+                            <label class="form-label" for="form6Example1">Jina la kwanza</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-outline">
                             {% render_field form.last_name|attr:'required:true' type="text" class="form-control" %}
 
-                            <label class="form-label" for="form6Example2">Last name</label>
+                            <label class="form-label" for="form6Example2">Jina La Mwisho</label>
                         </div>
                     </div>
                 </div>
@@ -36,14 +36,14 @@
                 <div class="mb-4 form-outline">
                     {% render_field form.designation|attr:'required:true' type="text" class="form-control" %}
 
-                    <label class="form-label" for="form6Example3">Designation</label>
+                    <label class="form-label" for="form6Example3">Namba ya Nida</label>
                 </div>
 
                 <!-- Text input -->
                 <div class="mb-4 form-outline">
                     {% render_field form.address|attr:'required:false' class="form-control" %}
                     <input type="text" class="form-control" />
-                    <label class="form-label">Address</label>
+                    <label class="form-label">Mkoa Uliopo</label>
                 </div>
 
                 <!-- Email input -->
@@ -64,14 +64,14 @@
                 <div class="mb-4 form-outline">
                     {% render_field form.phone|attr:'required:true' type="number" class="form-control" %}
 
-                    <label class="form-label">Phone</label>
+                    <label class="form-label">Namba ya Simu</label>
                 </div>
 
                 <!-- Message input -->
                 <div class="mb-4 form-outline">
                     {% render_field form.information|attr:'required:true' rows="4" class="form-control" %}
 
-                    <label class="form-label">Additional information</label>
+                    <label class="form-label">Maelezo Ya Ziada</label>
                 </div>
 
                 <!-- Checkbox -->
@@ -81,7 +81,7 @@
                 </div>
 
                 <!-- Submit button -->
-                <button type="submit" class="mb-4 btn btn-primary btn-block">Update Account</button>
+                <button type="submit" class="mb-4 btn btn-primary btn-block">Tuma</button>
             </form>
 
 

@@ -14,7 +14,7 @@ Loan Request
 
     <div class="row mb-5">
         <div class="p-5 m-auto rounded shadow-lg col-md-6 bg-body">
-            <h3 class="text-center text-success"> Request For Loan</h3>
+            <h3 class="text-center text-success"> Tuma Ombi la Mkopo</h3>
             </h3>
             <form method="POST" class="my-5">
 
@@ -22,7 +22,7 @@ Loan Request
 
 
                 <div class="mb-4 input-group">
-                    <div class="input-group-text">Loan Category</div>
+                    <div class="input-group-text">Aina ya Mkopo</div>
                     {% render_field form.category|attr:'required:true' class="form-control" %}
                 </div>
 
@@ -32,13 +32,13 @@ Loan Request
                 <div class="mb-4 form-outline">
 
                     {% render_field form.reason|attr:'required:true' class="form-control" %}
-                    <label class="form-label">Reason For Loan</label>
+                    <label class="form-label">Sababu Ya Kuomba Mkopo</label>
                 </div>
 
                 <div class="mb-4 form-outline">
 
                     {% render_field form.amount|attr:'required:true' type="number" class="form-control" %}
-                    <label class="form-label">Request Amount</label>
+                    <label class="form-label">Kiwango Cha Mkopo</label>
                 </div>
 
 
@@ -46,7 +46,7 @@ Loan Request
                 <div class="mb-4 form-outline">
 
                     {% render_field form.year|attr:'required:true' type="number" class="form-control" %}
-                    <label class="form-label">How many year for loan?</label>
+                    <label class="form-label">Je Utarudisha Baada ya Miezi Mingapi..?</label>
                 </div>
 
                 <!-- 2 column grid layout for inline styling -->
@@ -62,7 +62,7 @@ Loan Request
 
                 </div>
 
-                <button type="submit" class="mb-4 btn btn-primary btn-block">Send Request</button>
+                <button type="submit" class="mb-4 btn btn-primary btn-block">Tuma Ombi</button>
 
 
 

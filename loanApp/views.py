@@ -15,6 +15,14 @@ def home(request):
     return render(request, 'home.html', context={})
 
 
+
+
+@login_required(login_url='/account/login-customer')
+def feedback(request):
+
+    return render(request, 'loanApp/feedback.html', context={})
+
+
 @login_required(login_url='/account/login-customer')
 def LoanRequest(request):
 
@@ -27,7 +35,9 @@ def LoanRequest(request):
             loan_obj = form.save(commit=False)
             loan_obj.customer = request.user.customer
             loan_obj.save()
-            return redirect('/')
+            return redirect('/loan/feedback/')
+
+            #return redirect('//loan-request/')
 
     return render(request, 'loanApp/loanrequest.html', context={'form': form})
 
