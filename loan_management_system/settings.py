@@ -12,7 +12,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = '0k7(=3xy503l5nio^)k29b1ryxyfm)r%k)))4xqq3li4)og%9c'
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['https://mirau-974710398d60.herokuapp.com']
 
 # Application definition
