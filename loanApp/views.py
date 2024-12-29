@@ -117,6 +117,6 @@ def UserDashboard(request):
     return render(request, 'loanApp/user_dashboard.html', context=dict)
 
 
-def error_404_view(request, exception):
-    print("not found")
-    return render(request, 'notFound.html')
+# def error_404_view(request, exception):
+#     print("not found")
+#     return render(request, 'notFound.html')
