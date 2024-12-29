@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+from cloudinary.models import CloudinaryField
+
 
 class CustomerSignUp(models.Model):
     user = models.OneToOneField(
@@ -11,8 +13,7 @@ class CustomerSignUp(models.Model):
     email = models.EmailField(max_length=100, blank=False)
     address = models.CharField(
         max_length=250, default='Dhaka,Bangladesh', blank=True, null=True)
-    profile_picture = models.ImageField(
-        upload_to='profile_pic', )
+    profile_picture = CloudinaryField('image')
     designation = models.CharField(max_length=100, blank=False)
     phone = models.IntegerField(blank=True, null=True)
     information = models.TextField(blank=True, null=True)
