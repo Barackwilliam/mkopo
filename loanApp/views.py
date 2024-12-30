@@ -17,44 +17,44 @@ def home(request):
 
 
 
-@login_required(login_url='/account/login-customer')
+# @login_required(login_url='/account/login-customer')
 def feedback(request):
 
     return render(request, 'loanApp/feedback.html', context={})
 
 
+# @login_required(login_url='/account/login-customer')
+# def LoanRequest(request):
+
+#     form = LoanRequestForm()
+
+#     if request.method == 'POST':
+#         form = LoanRequestForm(request.POST)
+
+#         if form.is_valid():
+#             loan_obj = form.save(commit=False)
+#             loan_obj.customer = request.user.customer
+#             loan_obj.save()
+#             return redirect('/loan/feedback/')
+
+#             #return redirect('//loan-request/')
+
+#     return render(request, 'loanApp/loanrequest.html', context={'form': form})
+
+
+
+
 @login_required(login_url='/account/login-customer')
 def LoanRequest(request):
-
     form = LoanRequestForm()
-
     if request.method == 'POST':
         form = LoanRequestForm(request.POST)
-
         if form.is_valid():
             loan_obj = form.save(commit=False)
             loan_obj.customer = request.user.customer
             loan_obj.save()
-            return redirect('/loan/feedback/')
-
-            #return redirect('//loan-request/')
-
+            return redirect('/loan/feedback/')  # Redirect to feedback page
     return render(request, 'loanApp/loanrequest.html', context={'form': form})
-
-    # reason = request.POST.get('reason')
-    # amount = request.POST.get('amount')
-    # category = request.POST.get('category')
-    # year = request.POST.get('year')
-    # customer = request.user.customer
-
-    # loan_request = LoanRequest(request)
-    # loan_request.customer = customer
-    # loan_request.save()
-    # if form.is_valid():
-    #     loan_request = form.save(commit=False)
-    #     loan_request.customer = request.user.customer
-    #     print(loan_request)
-    #     return redirect('/')
 
 
 @login_required(login_url='/account/login-customer')
@@ -117,6 +117,6 @@ def UserDashboard(request):
     return render(request, 'loanApp/user_dashboard.html', context=dict)
 
 
-# def error_404_view(request, exception):
-#     print("not found")
-#     return render(request, 'notFound.html')
+def error_404_view(request, exception):
+    print("not found")
+    return render(request, 'notFound.html')

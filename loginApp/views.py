@@ -10,63 +10,152 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 
+# def sign_up_view(request):
+#     error = ''
+#     if request.user.is_authenticated:
+
+#         return HttpResponseRedirect(reverse('home'))
+
+#     form = CustomerSignUpForm()
+#     if request.method == 'POST':
+
+#         form = CustomerSignUpForm(request.POST)
+#         # print(form.cleaned_data['username'])
+#         if form.is_valid():
+#             user = form.save()
+
+#             user_profile = CustomerSignUp(user=user)
+#             user_profile.save()
+#             username = form.cleaned_data['username']
+#             password1 = form.cleaned_data['password1']
+#             print(username,password1)
+#             user = authenticate(request, username=username, password=password1)
+#             if user is not None:
+#                 login(request, user)
+#                 #return HttpResponseRedirect(reverse('home'))
+#                 return HttpResponseRedirect(reverse('login_App:login_customer'))
+
+#             return HttpResponseRedirect(reverse('login_App:login_customer'))
+
+#         else:
+#             if User.objects.filter(username=request.POST['username']).exists():
+#                 error = 'customer already exists'
+
+#             else:
+#                 error = 'Your password is not strong enough or both password must be same'
+        
+
+#     return render(request, 'loginApp/signup.html', context={'form': form, 'user': "Customer Register", 'error': error})
+
+
+
+
+# def sign_up_view(request):
+#     error = ''
+#     if request.user.is_authenticated:
+#         return HttpResponseRedirect(reverse('login_App:login_customer'))  # Redirect kama tayari amelogin
+
+#     form = CustomerSignUpForm()
+#     if request.method == 'POST':
+#         form = CustomerSignUpForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()  # Save user
+#             user_profile = CustomerSignUp(user=user)
+#             user_profile.save()
+#             # Login user mara baada ya signup
+#             username = form.cleaned_data['username']
+#             password1 = form.cleaned_data['password1']
+#             user = authenticate(request, username=username, password=password1)
+#             if user is not None:
+#                 login(request, user)
+#                 return HttpResponseRedirect(reverse('login_App:login_customer'))  # Redirect to login
+
+#         else:
+#             if User.objects.filter(username=request.POST['username']).exists():
+#                 error = 'Customer already exists'
+#             else:
+#                 error = 'Password is weak or passwords do not match'
+
+#     return render(request, 'loginApp/signup.html', context={'form': form, 'user': "Customer Register", 'error': error})
+
+
+
+
+
+
 def sign_up_view(request):
     error = ''
     if request.user.is_authenticated:
-
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('login_App:login_customer'))  # Redirect kama tayari amelogin
 
     form = CustomerSignUpForm()
     if request.method == 'POST':
-
         form = CustomerSignUpForm(request.POST)
-        # print(form.cleaned_data['username'])
         if form.is_valid():
-            user = form.save()
-
-            user_profile = CustomerSignUp(user=user)
-            user_profile.save()
+            # Hakikisha username ni ya kipekee
             username = form.cleaned_data['username']
-            password1 = form.cleaned_data['password1']
-            print(username,password1)
-            user = authenticate(request, username=username, password=password1)
-            if user is not None:
-                login(request, user)
-                #return HttpResponseRedirect(reverse('home'))
-                return HttpResponseRedirect(reverse('login_App:login_customer'))
-
-            return HttpResponseRedirect(reverse('login_App:login_customer'))
-
-        else:
-            if User.objects.filter(username=request.POST['username']).exists():
-                error = 'customer already exists'
-
+            if User.objects.filter(username=username).exists():
+                error = 'Username already exists. Please choose a different one.'
             else:
-                error = 'Your password is not strong enough or both password must be same'
-        
+                # Save user na profile
+                user = form.save()
+                CustomerSignUp.objects.create(user=user)
+                
+                # Authenticate na ku-login user
+                password1 = form.cleaned_data['password1']
+                user = authenticate(request, username=username, password=password1)
+                if user is not None:
+                    login(request, user)
+                    return HttpResponseRedirect(reverse('login_App:login_customer'))  # Redirect to login
+        else:
+            error = 'Badili Username au Jaribu Password Tofauti!.'
 
     return render(request, 'loginApp/signup.html', context={'form': form, 'user': "Customer Register", 'error': error})
+
+
+
+
+
+
+
+# def login_view(request):
+#     form = CustomerLoginForm()
+#     if request.method == 'POST':
+#         form = CustomerLoginForm(data=request.POST)
+#         # username = request.POST['username']
+#         # password = request.POST['password']
+#         # print(username, password)
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password']
+
+#             user = authenticate(request, username=username, password=password)
+#             if user is not None:
+#                 login(request, user)
+#                 return HttpResponseRedirect(reverse('login_App:edit-customer'))
+
+#         else:
+#             return render(request, 'loginApp/login.html', context={'form': form, 'user': "Customer Login", 'error': 'Invalid username or password'})
+#     return render(request, 'loginApp/login.html', context={'form': form, 'user': "Customer Login"})
+
+
 
 
 def login_view(request):
     form = CustomerLoginForm()
     if request.method == 'POST':
         form = CustomerLoginForm(data=request.POST)
-        # username = request.POST['username']
-        # password = request.POST['password']
-        # print(username, password)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse('login_App:edit-customer'))
-
+                return HttpResponseRedirect(reverse('login_App:edit-customer'))  # Redirect to edit-customer
         else:
             return render(request, 'loginApp/login.html', context={'form': form, 'user': "Customer Login", 'error': 'Invalid username or password'})
     return render(request, 'loginApp/login.html', context={'form': form, 'user': "Customer Login"})
+
 
 
 @login_required()
@@ -75,19 +164,33 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('home'))
 
 
+# @login_required(login_url='/account/login-customer')
+# def edit_customer(request):
+#     customer = CustomerSignUp.objects.get(user=request.user)
+#     form = UpdateCustomerForm(instance=customer)
+#     if request.method == 'POST':
+
+#         form = UpdateCustomerForm(
+#             request.POST, request.FILES, instance=customer)
+#         if form.is_valid:
+#             customer = form.save(commit=False)
+#             customer.save()
+#             return redirect('/loan/loan-request/')
+#             #return HttpResponseRedirect(reverse('/loan/loan-request/'))
+        
+#     # return HttpResponseRedirect(reverse('home'))
+#     return render(request, 'loginApp/edit.html', context={'form': form})
+
+
 @login_required(login_url='/account/login-customer')
 def edit_customer(request):
     customer = CustomerSignUp.objects.get(user=request.user)
     form = UpdateCustomerForm(instance=customer)
     if request.method == 'POST':
-
-        form = UpdateCustomerForm(
-            request.POST, request.FILES, instance=customer)
-        if form.is_valid:
+        form = UpdateCustomerForm(request.POST, request.FILES, instance=customer)
+        if form.is_valid():
             customer = form.save(commit=False)
             customer.save()
-            return redirect('/loan/loan-request/')
-            #return HttpResponseRedirect(reverse('/loan/loan-request/'))
-        
-    # return HttpResponseRedirect(reverse('home'))
+            return redirect('/loan/loan-request/')  # Redirect to loan request page
     return render(request, 'loginApp/edit.html', context={'form': form})
+

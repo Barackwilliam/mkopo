@@ -26,8 +26,8 @@ class loanRequest(models.Model):
         max_length=150, null=True, blank=True, default=None)
     reason = models.TextField()
     status = models.CharField(max_length=100, default='pending')
-    amount = models.PositiveIntegerField(default=0)
-    year = models.PositiveIntegerField(default=1)
+    amount = models.PositiveIntegerField(default=100000)
+    year = models.PositiveIntegerField(default=4)
 
     def __str__(self):
         return self.customer.user.username
